@@ -13,6 +13,7 @@
     color: #241b3a;
   }
 
+  /* 🌄 KUVA */
   .hero {
     width: 100%;
     height: 34vh;
@@ -21,6 +22,7 @@
     background: url("tausta.png") center 70% / cover no-repeat;
   }
 
+  /* 📦 SISÄLTÖ */
   .container {
     display: flex;
     justify-content: center;
@@ -75,12 +77,12 @@
     font-size: 1.1rem;
   }
 
+  /* 📱 MOBIILI */
   @media (max-width: 700px) {
     .hero {
       height: auto;
       min-height: 0;
-      max-height: none;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 4 / 3;
       background: url("tausta.png") center center / contain no-repeat;
       background-color: #f6d6a8;
     }
@@ -126,16 +128,29 @@
 
 <div class="container">
   <div class="card">
-    <h1>La dolce vita</h1>
-    <div class="subtitle">Aurinkoa, viiniä ja pastaa odottaa.</div>
+    <h1>La dolce vita 🌞</h1>
+    <div class="subtitle">Aurinkoa, viiniä ja pastaa – kohta mennään.</div>
 
     <div class="countdown">
-      <div class="box"><div class="number" id="days">0</div><div class="label">PÄIVÄÄ</div></div>
-      <div class="box"><div class="number" id="hours">0</div><div class="label">TUNTIA</div></div>
-      <div class="box"><div class="number" id="minutes">0</div><div class="label">MINUUTTIA</div></div>
-      <div class="box"><div class="number" id="seconds">0</div><div class="label">SEKUNTIA</div></div>
+      <div class="box">
+        <div class="number" id="days">0</div>
+        <div class="label">PÄIVÄÄ</div>
+      </div>
+      <div class="box">
+        <div class="number" id="hours">0</div>
+        <div class="label">TUNTIA</div>
+      </div>
+      <div class="box">
+        <div class="number" id="minutes">0</div>
+        <div class="label">MINUUTTIA</div>
+      </div>
+      <div class="box">
+        <div class="number" id="seconds">0</div>
+        <div class="label">SEKUNTIA</div>
+      </div>
     </div>
 
+    <div class="footer" id="message">La dolce vita lähestyy.</div>
   </div>
 </div>
 
