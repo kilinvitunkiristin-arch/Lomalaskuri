@@ -15,17 +15,17 @@
 
   .hero {
     width: 100%;
-    height: 30vh;
-    min-height: 190px;
-    max-height: 360px;
+    height: 34vh;
+    min-height: 230px;
+    max-height: 430px;
     background: url("tausta.png") center 70% / cover no-repeat;
   }
 
   .container {
     display: flex;
     justify-content: center;
-    margin-top: -10px; /* 👈 siirretty alemmaksi */
-    padding: 0 12px 30px;
+    margin-top: 14px;
+    padding: 0 12px 32px;
   }
 
   .card {
@@ -75,16 +75,19 @@
     font-size: 1.1rem;
   }
 
-  /* 📱 mobiili */
   @media (max-width: 700px) {
     .hero {
-      height: 30vh;
-      min-height: 190px;
-      background-position: center top;
+      height: auto;
+      min-height: 0;
+      max-height: none;
+      aspect-ratio: 1 / 1;
+      background: url("tausta.png") center center / contain no-repeat;
+      background-color: #f6d6a8;
     }
 
     .container {
-      margin-top: 10px; /* 👈 vielä vähän alemmaksi mobiilissa */
+      margin-top: 18px;
+      padding: 0 12px 28px;
     }
 
     .card {
@@ -127,22 +130,10 @@
     <div class="subtitle">Aurinkoa, viiniä ja pastaa odottaa.</div>
 
     <div class="countdown">
-      <div class="box">
-        <div class="number" id="days">0</div>
-        <div class="label">PÄIVÄÄ</div>
-      </div>
-      <div class="box">
-        <div class="number" id="hours">0</div>
-        <div class="label">TUNTIA</div>
-      </div>
-      <div class="box">
-        <div class="number" id="minutes">0</div>
-        <div class="label">MINUUTTIA</div>
-      </div>
-      <div class="box">
-        <div class="number" id="seconds">0</div>
-        <div class="label">SEKUNTIA</div>
-      </div>
+      <div class="box"><div class="number" id="days">0</div><div class="label">PÄIVÄÄ</div></div>
+      <div class="box"><div class="number" id="hours">0</div><div class="label">TUNTIA</div></div>
+      <div class="box"><div class="number" id="minutes">0</div><div class="label">MINUUTTIA</div></div>
+      <div class="box"><div class="number" id="seconds">0</div><div class="label">SEKUNTIA</div></div>
     </div>
 
     <div class="footer" id="message">La dolce vita lähestyy.</div>
