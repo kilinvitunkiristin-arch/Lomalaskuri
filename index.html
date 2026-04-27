@@ -24,7 +24,7 @@
   .container {
     display: flex;
     justify-content: center;
-    margin-top: -25px;
+    margin-top: -10px; /* 👈 siirretty alemmaksi */
     padding: 0 12px 30px;
   }
 
@@ -75,12 +75,7 @@
     font-size: 1.1rem;
   }
 
-  .workdays {
-    margin-top: 10px;
-    font-size: 1.1rem;
-    font-weight: 800;
-  }
-
+  /* 📱 mobiili */
   @media (max-width: 700px) {
     .hero {
       height: 30vh;
@@ -89,7 +84,7 @@
     }
 
     .container {
-      margin-top: -20px;
+      margin-top: 0px; /* 👈 vielä vähän alemmaksi mobiilissa */
     }
 
     .card {
@@ -117,10 +112,6 @@
 
     .number {
       font-size: 2.8rem;
-    }
-
-    .workdays {
-      font-size: 1.12rem;
     }
   }
 </style>
@@ -155,33 +146,11 @@
     </div>
 
     <div class="footer" id="message">La dolce vita lähestyy.</div>
-    <div class="workdays" id="workdays">💼 Työpäiviä jäljellä lasketaan...</div>
   </div>
 </div>
 
 <script>
   const targetDate = new Date("2026-05-14T07:00:00+03:00");
-
-  function countWorkdaysUntil(targetDate) {
-    const start = new Date();
-    const end = new Date(targetDate);
-
-    start.setHours(0, 0, 0, 0);
-    end.setHours(0, 0, 0, 0);
-
-    let count = 0;
-    const current = new Date(start);
-
-    while (current < end) {
-      const day = current.getDay();
-      if (day !== 0 && day !== 6) {
-        count++;
-      }
-      current.setDate(current.getDate() + 1);
-    }
-
-    return count;
-  }
 
   function updateCountdown() {
     const now = new Date();
@@ -202,9 +171,6 @@
     document.getElementById("hours").textContent = hours;
     document.getElementById("minutes").textContent = minutes;
     document.getElementById("seconds").textContent = seconds;
-
-    document.getElementById("workdays").textContent =
-      "💼 Työpäiviä jäljellä noin " + countWorkdaysUntil(targetDate);
 
     if (days < 1) {
       document.getElementById("message").textContent = "🔥 Lähtö tänään!";
