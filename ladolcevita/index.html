@@ -1,1 +1,223 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>La dolce vita</title>
 
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f6d6a8;
+    color: #241b3a;
+  }
+
+  .hero {
+    width: 100%;
+    height: 34vh;
+    min-height: 230px;
+    max-height: 430px;
+    background: url("ladolcevita/tausta.png") center 70% / cover no-repeat;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    margin-top: 14px;
+    padding: 0 12px 32px;
+  }
+
+  .card {
+    background: rgba(255, 248, 238, 0.94);
+    border-radius: 26px;
+    padding: 24px;
+    max-width: 720px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 16px 45px rgba(0,0,0,0.24);
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    margin-bottom: 18px;
+  }
+
+  .countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .box {
+    background: #fffaf3;
+    border-radius: 18px;
+    padding: 15px 8px;
+  }
+
+  .number {
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    font-weight: 800;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .footer {
+    margin-top: 18px;
+    font-size: 1.1rem;
+  }
+
+  .weatherwrap {
+    margin-top: 20px;
+  }
+
+  .weatherwidget-io {
+    display: block;
+    margin-top: 8px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 700px) {
+    .hero {
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 4 / 3;
+      background: url("tausta.png") center center / contain no-repeat;
+      background-color: #f6d6a8;
+    }
+
+    .container {
+      margin-top: 18px;
+      padding: 0 12px 28px;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 24px;
+    }
+
+    h1 {
+      font-size: 2.35rem;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+    }
+
+    .countdown {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .box {
+      padding: 14px 8px;
+    }
+
+    .number {
+      font-size: 2.8rem;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="hero"></div>
+
+<div class="container">
+  <div class="card">
+    <h1>La dolce vita 🌞</h1>
+    <div class="subtitle">Aurinkoa, viiniä ja pastaa – kohta mennään.</div>
+
+    <div class="countdown">
+      <div class="box">
+        <div class="number" id="days">0</div>
+        <div class="label">PÄIVÄÄ</div>
+      </div>
+      <div class="box">
+        <div class="number" id="hours">0</div>
+        <div class="label">TUNTIA</div>
+      </div>
+      <div class="box">
+        <div class="number" id="minutes">0</div>
+        <div class="label">MINUUTTIA</div>
+      </div>
+      <div class="box">
+        <div class="number" id="seconds">0</div>
+        <div class="label">SEKUNTIA</div>
+      </div>
+    </div>
+
+    <div class="footer" id="message">Firenze kutsuu.</div>
+
+    <div class="weatherwrap">
+      <a class="weatherwidget-io"
+         href="https://forecast7.com/en/43d7711d25/metropolitan-city-of-florence/"
+         data-label_1="FIRENZE"
+         data-label_2="SÄÄ"
+         data-theme="pure">
+      FIRENZE SÄÄ</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const targetDate = new Date("2026-05-14T07:00:00+03:00");
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      document.querySelector(".card").innerHTML =
+        "<h1>🍷 La dolce vita alkaa!</h1><div class='footer'>Nyt saa lähteä.</div>";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
+
+    if (days < 1) {
+      document.getElementById("message").textContent = "🔥 Lähtö tänään!";
+    } else if (days < 3) {
+      document.getElementById("message").textContent = "😎 Kohta mennään...";
+    } else {
+      document.getElementById("message").textContent = "Firenze kutsuu.";
+    }
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+<script>
+!function(d,s,id){
+  var js,fjs=d.getElementsByTagName(s)[0];
+  if(!d.getElementById(id)){
+    js=d.createElement(s);
+    js.id=id;
+    js.src='https://weatherwidget.io/js/widget.min.js';
+    fjs.parentNode.insertBefore(js,fjs);
+  }
+}(document,'script','weatherwidget-io-js');
+</script>
+
+</body>
+</html>
