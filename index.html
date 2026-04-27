@@ -24,14 +24,14 @@
   .container {
     display: flex;
     justify-content: center;
-    margin-top: -35px;
+    margin-top: -25px;
     padding: 0 12px 35px;
   }
 
   .card {
     background: rgba(255, 248, 238, 0.94);
     border-radius: 26px;
-    padding: 24px;
+    padding: 26px;
     max-width: 720px;
     width: 100%;
     text-align: center;
@@ -40,12 +40,12 @@
 
   h1 {
     margin: 0 0 8px;
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
   }
 
   .subtitle {
-    font-size: 1.15rem;
-    margin-bottom: 18px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
   }
 
   .countdown {
@@ -57,60 +57,81 @@
   .box {
     background: #fffaf3;
     border-radius: 18px;
-    padding: 15px 8px;
+    padding: 17px 8px;
   }
 
   .number {
-    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-size: clamp(2.3rem, 6vw, 3.8rem);
     font-weight: 800;
   }
 
   .label {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
   }
 
   .footer {
-    margin-top: 18px;
+    margin-top: 20px;
+    font-size: 1.15rem;
+  }
+
+  .workdays {
+    margin-top: 12px;
     font-size: 1.05rem;
+    font-weight: 700;
   }
 
   @media (max-width: 700px) {
     .hero {
-      height: 30vh;
-      min-height: 190px;
+      height: 34vh;
+      min-height: 210px;
       background-position: center top;
     }
 
     .container {
-      margin-top: -25px;
+      margin-top: -8px;
+      padding-bottom: 25px;
     }
 
     .card {
-      padding: 18px;
+      padding: 22px;
       border-radius: 24px;
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
     }
 
     .subtitle {
-      font-size: 1rem;
-      margin-bottom: 14px;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
     }
 
     .countdown {
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
 
     .box {
-      padding: 12px 8px;
+      padding: 16px 8px;
     }
 
     .number {
-      font-size: 2.4rem;
+      font-size: 3rem;
+    }
+
+    .label {
+      font-size: 0.85rem;
+    }
+
+    .footer {
+      font-size: 1.15rem;
+      margin-top: 20px;
+    }
+
+    .workdays {
+      margin-top: 12px;
+      font-size: 1.05rem;
     }
   }
 </style>
@@ -145,11 +166,31 @@
     </div>
 
     <div class="footer" id="message">La dolce vita lähestyy.</div>
+    <div class="workdays" id="workdays"></div>
   </div>
 </div>
 
 <script>
   const targetDate = new Date("2026-05-14T07:00:00+03:00");
+
+  function countWorkdaysUntil(target) {
+    const today = new Date();
+    const end = new Date(target);
+
+    today.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+
+    let workdays = 0;
+
+    for (let d = new Date(today); d < end; d.setDate(d.getDate() + 1)) {
+      const day = d.getDay();
+      if (day !== 0 && day !== 6) {
+        workdays++;
+      }
+    }
+
+    return workdays;
+  }
 
   function updateCountdown() {
     const now = new Date();
@@ -157,7 +198,7 @@
 
     if (diff <= 0) {
       document.querySelector(".card").innerHTML =
-        "<h1>🍷 La dolce vita alkaa!</h1>";
+        "<h1>🍷 La dolce vita alkaa!</h1><div class='footer'>Nyt saa lähteä.</div>";
       return;
     }
 
@@ -170,6 +211,18 @@
     document.getElementById("hours").textContent = hours;
     document.getElementById("minutes").textContent = minutes;
     document.getElementById("seconds").textContent = seconds;
+
+    const workdays = countWorkdaysUntil(targetDate);
+    document.getElementById("workdays").textContent =
+      "💼 Työpäiviä jäljellä noin " + workdays;
+
+    if (days < 1) {
+      document.getElementById("message").textContent = "🔥 Lähtö tänään!";
+    } else if (days < 3) {
+      document.getElementById("message").textContent = "😎 Kohta mennään...";
+    } else {
+      document.getElementById("message").textContent = "La dolce vita lähestyy.";
+    }
   }
 
   updateCountdown();
